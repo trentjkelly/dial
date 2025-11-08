@@ -8,5 +8,5 @@ func StartAudioInput() {
 	fmt.Println("Audio Input started")
 
 	// Block goroutine from exiting
-	select {}
+	for {}
 }

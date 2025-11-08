@@ -8,5 +8,5 @@ func StartUDPServer() {
 	fmt.Println("UDP Server started")
 
 	// Block goroutine from exiting
-	select {}
+	for {}
 }
