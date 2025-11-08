@@ -19,11 +19,13 @@ func main() {
 	addresses := fmt.Sprintf("Trent IP: %s, Trent Port: %s, Kareem IP: %s, Kareem Port: %s", trentIp, trentPort, kareemIp, kareemPort)
 	fmt.Println(addresses)
 
+	receiverIp := "0.0.0.0"
+	connectionPort := "8081"
 	// Make data channels
 
 	// Start go routines
-	go udpServer.StartUDPServer(kareemIp, kareemPort)
-	go udpSender.StartUDPSender()
+	go udpServer.StartUDPServer(receiverIp, connectionPort)
+	go udpSender.StartUDPSender(kareemIp, connectionPort)
 	go audioInput.StartAudioInput()
 	go audioOutput.StartAudioOutput()
 

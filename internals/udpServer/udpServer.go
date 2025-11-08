@@ -11,12 +11,30 @@ func StartUDPServer(receiverIp string, receiverPort string) {
 	address := fmt.Sprintf("%s:%s", receiverIp, receiverPort)
 	fmt.Println("Address:", address)
 
-	_, err := net.ResolveUDPAddr("udp", address)
+	udpAddr, err := net.ResolveUDPAddr("udp", address)
 	if err != nil {
 		fmt.Println("Error resolving UDP address:", err)
 		return
 	}
 
-	// Block goroutine from exiting
-	for {}
+	// Listen for incoming UDP packets
+	conn, err := net.ListenUDP("udp", udpAddr)
+	if err != nil {
+		fmt.Println("Error listening for UDP packets:", err)
+		return
+	}
+	defer conn.Close()
+
+	// Read incoming UDP packets
+	for {
+		buffer := make([]byte, 1024)
+		n, addr, err := conn.ReadFromUDP(buffer)
+		if err != nil {
+			fmt.Println("Error reading from UDP connection:", err)
+			return
+		}
+
+		// Print the received data
+		fmt.Printf("Received %d bytes from %s: %s\n", n, addr, buffer[:n])
+	}
 }
