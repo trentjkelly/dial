@@ -8,7 +8,7 @@ import (
 
 func StartUDPSender(ip string, port string) {
 	fmt.Println("UDP Sender started")
-	address := ip + ":" + port
+	address := fmt.Sprintf("%s:%s", ip, port)
 	udpAddr, err := net.ResolveUDPAddr("udp", address) // Change the IP Address
 	if err != nil {
 		fmt.Println(err)
@@ -22,7 +22,11 @@ func StartUDPSender(ip string, port string) {
 	}
 	defer conn.Close()
 
-	message :=[]byte("TEST UDP CONN MESSAGE")
+	var message []byte
+	fmt.Print("Enter Message: ")
+  fmt.Scan(&message)
+
+	// message :=[]byte("TEST UDP CONN MESSAGE")
 	_, err = conn.Write(message)
 	if err != nil {
 		fmt.Println("Failed to write message to connection")
