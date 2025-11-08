@@ -15,17 +15,15 @@ import (
 func main() {
 	fmt.Println("Starting dial...")
 
-	trentIp, trentPort, kareemIp, kareemPort := getEnvironmentVariables()
-	addresses := fmt.Sprintf("Trent IP: %s, Trent Port: %s, Kareem IP: %s, Kareem Port: %s", trentIp, trentPort, kareemIp, kareemPort)
+	myIp, myPort, friendIp, friendPort := getEnvironmentVariables()
+	addresses := fmt.Sprintf("My IP: %s, My Port: %s, Friend IP: %s, Friend Port: %s", myIp, myPort, friendIp, friendPort)
 	fmt.Println(addresses)
 
-	receiverIp := "0.0.0.0"
-	connectionPort := "8081"
 	// Make data channels
 
 	// Start go routines
-	go udpServer.StartUDPServer(receiverIp, connectionPort)
-	go udpSender.StartUDPSender(kareemIp, connectionPort)
+	go udpServer.StartUDPServer(myIp, myPort)
+	go udpSender.StartUDPSender(friendIp, friendPort)
 	go audioInput.StartAudioInput()
 	go audioOutput.StartAudioOutput()
 
@@ -40,10 +38,10 @@ func getEnvironmentVariables() (string, string, string, string) {
 		log.Fatalf("Error loading .env file: %s", err)
 	}
 
-	trentIp := os.Getenv("TRENT_IP")
-	trentPort := os.Getenv("TRENT_PORT")
-	kareemIp := os.Getenv("KAREEM_IP")
-	kareemPort := os.Getenv("KAREEM_PORT")
+	myIp := os.Getenv("MY_IP")
+	myPort := os.Getenv("MY_PORT")
+	friendIp := os.Getenv("FRIEND_IP")
+	friendPort := os.Getenv("FRIEND_PORT")
 
-	return trentIp, trentPort, kareemIp, kareemPort
+	return myIp, myPort, friendIp, friendPort
 }
