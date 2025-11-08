@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"dial/udpServer"
-	"dial/udpSender"
-	"dial/audioInput"
-	"dial/audioOutput"
+	"dial/internals/udpServer"
+	"dial/internals/udpSender"
+	"dial/internals/audioInput"
+	"dial/internals/audioOutput"
 )
 
 func main() {
