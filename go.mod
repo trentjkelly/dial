@@ -1,3 +1,3 @@
-module github.com/trentjkelly/dial
+module dial
 
 go 1.24.3
